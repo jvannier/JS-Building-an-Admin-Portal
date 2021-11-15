@@ -21,6 +21,9 @@ async function main() {
         let books = await loadBooks()
         if (!req.body.id) return res.status(400).json({ error: true, message: `'id' is required in the request body when calling 'updateBook'. Make sure you're stringifying the body of your request, and sending the appropriate headers.` })
         let book = books.find(book => book.id === req.body.id);
+        console.log({
+            books
+        })
         if (!book) return res.status(404).json({ error: true, message: `Could not find a book with an id of ${req.body.id}` })
         const { title, year, quantity, imageURL, description } = { ...book, ...req.body };
         Object.assign(book, { title, year, quantity, imageURL, description });
