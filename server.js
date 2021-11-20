@@ -7,7 +7,8 @@ const app = express();
 const liveServer = require('live-server');
 
 async function main() {
-
+    //configure static path
+    app.use(express.static('public'))
     app.use(cors());
 
     app.use(bodyParser.json());
@@ -52,12 +53,16 @@ async function main() {
         res.json(bookToDelete)
     })
 
-    app.listen(3001, () => {
-        liveServer.start({
-            port: 3000,
-            logLevel: 0,
-            root: './public'
-        })
+    
+    const PORT = 3001
+
+    app.listen(PORT, () => {
+        console.log("Server started listening on http://localhost:3001")
+        // liveServer.start({
+        //     port: 3000,
+        //     logLevel: 0,
+        //     root: './public'
+        // })
     })
 }
 
