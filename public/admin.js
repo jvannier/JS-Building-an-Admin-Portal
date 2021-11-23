@@ -1,63 +1,64 @@
+    //Code from 1.Review the Starter Code and 2.Review the API Documentation
+// async function main() {
+//     let response = await fetch ('http://localhost:3000/api-docs.html#operation/listBooks', {
+//         method:'GET',
+// });
 
-async function main() {
-    let response = await fetch ('http://localhost:3000/api-docs.html#operation/listBooks', {
-        method:'GET',
-});
+// let books = await response.json();
+// console.log(books);
 
-// let listBooks = await response.json();
-// console.log('books');
 
 //     let response = await fetch ('http://localhost:3000/api-docs.html#operation/updateBook', {
 //         method:'PATCH',
 //         headers: {
 //             'Content-Type': 'application/json'
-// },
+//                 },
+//         body: JSON.stringify ({
+//        "id":3,
+//       "title": "Legends of Arathrae"
+//               }),
 
-// // body: JSON.stringify ({
-// //     "id":3,
-// //     "title": "Legends of Arathrae"
-// // }),
+//          });
+// let updatedBook = await response.json();
+// console.log(updatedBook);
 
+async function update(){
 
-// // let updateBook = await response.json();
-// // console.log('updateBook');
+    let response = await fetch('http://localhost:3001/listBooks')
+    let books = await response.json()
 
-// }
+    books.forEach(upgradeBook)
 
+function upgradeBook(book) {
+    let root = document.querySelector('#root')
 
-function displayBook(book) {
-    let root = document.querySelectorAll('#root')
-   
     let li = document.createElement('li')
-    li.textContent= book.title
+    li.textContent = book.title
 
-    let inputQuantity = document.createElement('input')
-    inputQuantity.value = book.inputQuantity
+    let Inputquantity = document.createElement('input')
+   Inputquantity.value = book.quantity
 
-    let saveSubmit = document.createElement('submit')
-    saveSubmit.textContent = "Save"
+    let saveButton = document.createElement('button')
+    saveButton.textContent = 'Save'
 
-    saveButton.addEventListener('click', () => {
-        fetch ('http://localhost:3000/api-docs.html#operation/updateBook', {
-        method:'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-    },
-
-    body: JSON.stringify ({
-        id:"book.id",
-        quantity:"inputQuantity.value"
+    saveButton.addEventListener('click', function() {
+        fetch('http://localhost:3001/updateBook', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: book.id,
+                quantity: Inputquantity.value
+            })
+        })
     })
-})
 
-})
+    li.append(Inputquantity, saveButton)
 
-li.append(inputQuantity, saveButton)
-
-root.append(li)
+    root.append(li)
 }
 
-    }
+}
 
-main();
-
+update();
